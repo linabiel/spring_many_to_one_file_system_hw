@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class FileController {
@@ -22,7 +23,8 @@ public class FileController {
 
     @GetMapping(value = "/files/{id}")
     public ResponseEntity getFile(@PathVariable Long id) {
-        return new ResponseEntity<>(fileRepository.findById(id), HttpStatus.OK);
+        Optional<File> foundFile = fileRepository.findById(id);
+        return new ResponseEntity(foundFile, HttpStatus.OK);
     }
 
     @PostMapping(value = "/files")
